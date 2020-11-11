@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="page-title">
+            <h2>分类([[${categoryNum}]])</h2>
+        </div>
+
+        <div class="single-page-area">
+            <div class="single-page-content">
+                <div class="section-content">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <!-- Portfolio Content -->
+                            <div class="portfolio-content">
+
+                                <!-- Portfolio Grid -->
+                                <div class="portfolio-grid three-columns">
+
+                                    <figure class="item lbaudio" th:each="category,iterStat: ${categoryList}">
+                                        <div class="portfolio-item-img">
+                                            <img th:src="@{${category.coverUrl}}" alt="" title="" height="150"/>
+                                            <a th:href="@{'/categories/'+${category.name}+'/'}" class="lightbox mfp-iframe" th:title="${category.name}"></a>
+                                        </div>
+                                        <h4 class="name" style="text-align: center" th:text="${category.name} + '('+ ${category.postNum} +')'"></h4>
+                                    </figure>
+
+                                    <div th:if="${count == 0}" th:style="'text-align:center;'" th:text="'~~作者偷懒，没有创建分类栏目~~'"></div>
+                                </div>
+                            </div>
+                            <!-- End of Portfolio Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

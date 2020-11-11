@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title th:text="${#servletContext.getAttribute('configMap')['blog_name']}">个人博客</title>
+    <meta name="author" th:content="${#servletContext.getAttribute('configMap')['blog_author']}">
+    <meta name="keywords" th:content="${#servletContext.getAttribute('configMap')['keywords']}" />
+    <link rel="shortcut icon" th:href="@{${#servletContext.getAttribute('configMap')['favicon_url']}}"/>
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/reset.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/bootstrap-grid.min.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/animations.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/perfect-scrollbar.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/owl.carousel.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/magnific-popup.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/main.css'}" type="text/css">
+
+    <script th:src="@{${prefix} + '/source/js/modernizr.custom.js'}"></script>
+  </head>
+
+  <body>
+    <!-- Animated Background -->
+    <div class="lm-animated-bg" th:style="'background-image: url(' + ${prefix}+ '/source/img/main_bg.png' + ');'"></div>
+    <!-- /Animated Background -->
+
+    <!-- Loading animation -->
+    <div class="preloader">
+      <div class="preloader-animation">
+        <div class="preloader-spinner">
+        </div>
+      </div>
+    </div>
+    <!-- /Loading animation -->
+
+    <div class="page">
+      <div class="page-content">
+
+          <header id="site_header" class="header mobile-menu-hide">
+            <div class="header-content">
+              <div class="header-photo">
+                <img th:src="@{${#strings.isEmpty(#servletContext.getAttribute('configMap')['logo_url']) != true ? #servletContext.getAttribute('configMap')['logo_url'] : prefix + '/source/images/main_photo.jpg'}}"  alt="">
+              </div>
+              <div class="header-titles">
+                <h2 th:text="${#servletContext.getAttribute('configMap')['blog_name']}">博主</h2>
+                <h4>人生何处似樽前</h4>
+              </div>
+            </div>
+
+            <ul class="main-menu">
+              <li>
+                <a href="#blogs" class="nav-anim" data-url="/blogs/">
+                  <span class="menu-icon lnr lnr-home"></span>
+                  <span class="link-text">文章</span>
+                </a>
+              </li>
+              <li>
+                <a href="#archives" class="nav-anim" data-url="/archives/">
+                  <span class="menu-icon lnr lnr-layers"></span>
+                  <span class="link-text">归档</span>
+                </a>
+              </li>
+              <li>
+                <a href="#categories" class="nav-anim" data-url="/categories/">
+                  <span class="menu-icon lnr lnr-book"></span>
+                  <span class="link-text">分类</span>
+                </a>
+              </li>
+              <li>
+                <a href="#friendLinks" class="nav-anim" data-url="/friendLinks/">
+                  <span class="menu-icon lnr lnr-link "></span>
+                  <span class="link-text">友链</span>
+                </a>
+              </li>
+              <li>
+                <a href="#about" class="nav-anim" data-url="/about/">
+                  <span class="menu-icon lnr lnr-user"></span>
+                  <span class="link-text">关于</span>
+                </a>
+              </li>
+            </ul>
+
+            <div class="social-links">
+              <ul>
+                <li th:if="${#strings.isEmpty(#servletContext.getAttribute('configMap')['git_hub_account']) != true}"><a th:href="@{${#servletContext.getAttribute('configMap')['git_hub_account']}}" target="_blank"><i class="fab fa-github-alt"></i></a></li>
+                <li th:if="${#strings.isEmpty(#servletContext.getAttribute('configMap')['qq_account']) != true}"><a th:title="${#servletContext.getAttribute('configMap')['qq_account']}"><i class="fab fa-qq"></i></a></li>
+                <li th:if="${#strings.isEmpty(#servletContext.getAttribute('configMap')['wx_account']) != true}"><a th:title="${#servletContext.getAttribute('configMap')['wx_account']}"><i class="fab fa-weixin"></i></a></li>
+                <li th:if="${#strings.isEmpty(#servletContext.getAttribute('configMap')['email']) != true}"><a th:title="${#servletContext.getAttribute('configMap')['email']}"><i class="fab fa-airbnb"></i></a></li>
+              </ul>
+            </div>
+
+            <div class="header-buttons">
+              <a href="#" rel="sidebar" class="btn btn-primary" onclick="addFav();">收藏网站</a>
+            </div>
+
+            <div class="copyrights" th:text="${#servletContext.getAttribute('configMap')['power_by']}"></div>
+          </header>
+
+          <!-- Mobile Navigation -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <!-- End Mobile Navigation -->
+
+          <!-- Arrows Nav -->
+          <div class="lmpixels-arrows-nav">
+            <div class="lmpixels-arrow-right"><i class="lnr lnr-chevron-right"></i></div>
+            <div class="lmpixels-arrow-left"><i class="lnr lnr-chevron-left"></i></div>
+          </div>
+          <!-- End Arrows Nav -->
+
+          <div class="content-area">
+            <div class="animated-sections">
+
+              <!-- Blog Subpage -->
+              <section data-id="blogs" class="animated-section"></section>
+              <!-- End of Blog Subpage -->
+
+              <!-- Resume Archives -->
+              <section data-id="archives" class="animated-section"></section>
+              <!-- End of Archives Subpage -->
+
+              <!-- Categories Subpage -->
+              <section data-id="categories" class="animated-section"></section>
+              <!-- End of Categories Subpage -->
+
+              <!-- FriendLinks Subpage -->
+              <section data-id="friendLinks" class="animated-section"></section>
+              <!-- End of FriendLinks Subpage -->
+
+              <!-- About Me Subpage -->
+              <section data-id="about" class="animated-section"></section>
+              <!-- End of About Me Subpage -->
+
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+    <script th:src="@{${prefix} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/modernizr.custom.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/animating.js'}"></script>
+
+    <script th:src="@{${prefix} + '/source/js/imagesloaded.pkgd.min.js'}"></script>
+    <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
+
+    <script th:src="@{${prefix} + '/source/js/perfect-scrollbar.min.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/jquery.shuffle.min.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/masonry.pkgd.min.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/owl.carousel.min.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/jquery.magnific-popup.min.js'}"></script>
+
+    <script th:src="@{'http://www.google.cn/maps/api/js?key=AIzaSyCrDf32aQTCVENBhFJbMBKOUTiUAABtC2o'}"></script>
+    <script th:src="@{${prefix} + '/source/js/validator.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/main.js'}"></script>
+
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+    <style>
+        .section-content span {
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+        }
+        .section-content .remark {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2>友链([[${friendLinkNum}]])</h2>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+                <h4>博客网址</h4><br>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4" style="padding: 10px" th:each="friendLink : ${bloggerList}">
+                       <div class="row">
+                           <div class="col-md-3">
+                               <span th:style="'background-color:' + ${friendLink.backgroundColor} "></span>
+                           </div>
+                           <div class="col-md-9">
+                               <a th:href="@{${friendLink.homeUrl}}" th:text="${friendLink.title}" target="_blank"></a>
+                               <div class="remark" th:text="${#strings.isEmpty(friendLink.remark) == true? '无' : friendLink.remark}"></div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div th:if="${#lists.isEmpty(bloggerList)}" th:style="'text-align:center;'" th:text="'~~暂时没有推荐的博主网址~~'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="section-content">
+                <h4>常用网址</h4><br>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4" style="padding: 10px" th:each="friendLink : ${webSiteList}">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span th:style="'background-color:' + ${friendLink.backgroundColor} "></span>
+                            </div>
+                            <div class="col-md-9">
+                                <a th:href="@{${friendLink.homeUrl}}" th:text="${friendLink.title}"></a>
+                                <div th:text="${#strings.isEmpty(friendLink.remark) == true? '无' : friendLink.remark}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div th:if="${#lists.isEmpty(webSiteList)}" th:style="'text-align:center;'" th:text="'~~暂时没有推荐的常用网址~~'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2>文章</h2>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="blog-masonry two-columns clearfix">
+                            <div class="item" th:each="post,iterStat : ${pageInfo.data}">
+                                <div class="blog-card">
+                                    <div class="media-block">
+                                        <div class="category">
+                                            <a th:href="@{'/categories/'+${post.categoryName}+'/'}" th:text="${post.categoryName}"></a>
+                                        </div>
+                                        <span class="post-item-top" th:if="${post.top}">
+                                        <img th:src="@{'/theme/breezyCV/source/images/article-top.png'}" alt="" width="48" height="48">
+                                    </span>
+                                        <a th:href="@{'/' + ${post.link}}">
+                                            <img th:src="@{${post.coverUrl}}" class="size-blog-masonry-image-two-c" width="100%" height="200" alt="" title="" />
+                                            <div class="mask"></div>
+                                        </a>
+                                    </div>
+                                    <div class="post-info">
+                                        <div class="post-date"><i class="lnr lnr-calendar-full"></i> [[${post.publishDate}]]</div>
+                                        <div class="post-comment"><i class="lnr lnr-cloud"></i> [[${post.commentNum}]]</div>
+                                        <h4 class="blog-item-title"><a th:href="@{'/' + ${post.link}}" th:text="${post.title}"></a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="white-space-20"></div>
+
+                <nav class="text-center" th:if="${#lists.isEmpty(pageInfo.data) eq false}">
+                    <span th:if="${pageInfo.hasPreviousPage}" class="nav-page">
+                        <a class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/' : '/blogs/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
+                    </span>
+                    <span th:if="${pageInfo.hasPreviousPage == false}" class="nav-page">
+                        <a class="prev page-numbers" href="javascript:void(0)"><i class="fa fa-angle-left"></i></a>
+                    </span>
+                    <span th:each="pageNum : ${pageInfo.navigatepageNums}" class="nav-page">
+                        <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" th:text="${pageNum}" class="page-numbers current"></a>
+                        <a th:if="${pageNum != pageInfo.pageNum}" th:href="@{'/blogs/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers hidden-xs"></a>
+                    </span>
+                    <span th:if="${pageInfo.hasNextPage}" class="nav-page">
+                        <a class="next page-numbers" th:href="@{'/blogs/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
+                    </span>
+                    <span th:if="${pageInfo.hasNextPage == false}" class="nav-page">
+                        <a class="next page-numbers" href="javascript:void(0)"><i class="fa fa-angle-right"></i></a>
+                    </span>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

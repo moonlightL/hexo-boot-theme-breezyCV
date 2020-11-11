@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2>[[${name}]] <small>([[${type}]])</small></h2>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+
+                <div class="row">
+                    <div class="col-md-12" th:each="post,iterStat : ${pageInfo.list}">
+                        <div class="timeline timeline-second-style clearfix">
+                            <div class="timeline-item clearfix">
+                                <div class="left-part">
+                                    <h5 class="item-period" th:text="${post.year}"></h5>
+                                    <span class="item-company" th:text="${post.month} + '-' + ${post.day}"></span>
+                                </div>
+                                <span class="divider"></span>
+                                <div class="right-part">
+                                    <h4 class="item-title">
+                                        <a th:href="@{'/'+${post.link}}" th:text="${post.title}"></a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" th:if="${pageInfo.total == 0}">
+                        <div style="text-align:center;">
+                            ~~找不到数据~~
+                        </div>
+                    </div>
+                </div>
+
+                <div class="white-space-20"></div>
+
+                <div class="row">
+                    <div class="col-md-12" th:if="${type == '分类'}">
+                        <nav class="text-center" th:if="${#lists.isEmpty(pageInfo.total) eq false}">
+                            <span th:if="${pageInfo.hasPreviousPage}" class="nav-page">
+                                <a class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/categories/' : '/categories/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
+                            </span>
+                            <span th:if="${pageInfo.hasPreviousPage == false}" class="nav-page">
+                                <a class="prev page-numbers" href="javascript:void(0)"><i class="fa fa-angle-left"></i></a>
+                            </span>
+                            <span th:each="pageNum : ${pageInfo.navigatepageNums}" class="nav-page">
+                                <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" th:text="${pageNum}" class="page-numbers current"></a>
+                                <a th:if="${pageNum != pageInfo.pageNum}" th:href="@{${pageNum} == 1 ? '/categories/' : '/categories/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers hidden-xs"></a>
+                            </span>
+                            <span th:if="${pageInfo.hasNextPage}" class="nav-page">
+                                <a class="next page-numbers" th:href="@{'/categories/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
+                            </span>
+                            <span th:if="${pageInfo.hasNextPage == false}" class="nav-page">
+                                <a class="next page-numbers" href="javascript:void(0)"><i class="fa fa-angle-right"></i></a>
+                            </span>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-12" th:if="${type == '标签'}">
+                        <nav class="text-center" th:if="${#lists.isEmpty(pageInfo.total) eq false}">
+                            <span th:if="${pageInfo.hasPreviousPage}" class="nav-page">
+                                <a class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/tags/' : '/tags/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
+                            </span>
+                            <span th:if="${pageInfo.hasPreviousPage == false}" class="nav-page">
+                                <a class="prev page-numbers" href="javascript:void(0)"><i class="fa fa-angle-left"></i></a>
+                            </span>
+                            <span th:each="pageNum : ${pageInfo.navigatepageNums}" class="nav-page">
+                                <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" th:text="${pageNum}" class="page-numbers current"></a>
+                                <a th:if="${pageNum != pageInfo.pageNum}" th:href="@{${pageNum} == 1 ? '/tags/' : '/tags/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers hidden-xs"></a>
+                            </span>
+                            <span th:if="${pageInfo.hasNextPage}" class="nav-page">
+                                <a class="next page-numbers" th:href="@{'/tags/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
+                            </span>
+                            <span th:if="${pageInfo.hasNextPage == false}" class="nav-page">
+                                <a class="next page-numbers" href="javascript:void(0)"><i class="fa fa-angle-right"></i></a>
+                            </span>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

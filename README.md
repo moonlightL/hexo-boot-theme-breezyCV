@@ -1,1 +1,1 @@
-# -hexo-boot-theme-breezyCV
+# hexo-boot-theme-breezyCV

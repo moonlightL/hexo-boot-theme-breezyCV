@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+    <link rel="stylesheet" th:href="@{${prefix} + '/source/js/overshare/css/share.min.css'}"/>
+    <link rel="stylesheet" th:href="@{'/admin/assets/custom/jquery-comment/jquery-comment.css'}">
+    <style>
+        body {
+            background: #fff;
+            overflow: auto;
+        }
+
+        .post-thumbnail img {
+            object-fit: cover;
+            position: relative;
+        }
+
+        .post-thumbnail .post-title {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            z-index: 2;
+            color: #fff;
+        }
+
+        @media (max-width: 767px) {
+            .post-thumbnail img {
+                height: 200px;
+            }
+            .post-thumbnail .post-title {
+                font-size: 14px;
+            }
+            .single-page-content {
+                padding: 30px;
+            }
+        }
+
+        .post-thumbnail::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0.3;
+        }
+
+        strong, .entry-share a {
+            word-wrap: break-word;
+        }
+
+        .post-content a {
+            position: relative !important;
+        }
+
+        .social-share .social-share-icon {
+            border: 1px solid #666;
+            color: #666;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            line-height: 24px;
+            border-radius: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2><a href="javascript:void(0)" onclick="history.go(-1)">返回</a></h2>
+        <span class="to-top hidden" id="toTop"><i class="lnr lnr-chevron-up"></i></span>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+                <div class="post-thumbnail">
+                    <img th:src="@{${post.coverUrl}}" alt="image" width="100%" height="320px">
+                    <h2 class="post-title" th:text="${post.title}"></h2>
+                </div>
+                <div class="post-content">
+                    <!-- /Entry header -->
+                    <header class="entry-header">
+                        <!-- Entry meta -->
+                        <div class="entry-meta entry-meta-top">
+                            <div class="alert alert-danger" th:if="${post.reprint == true}">
+                                <ul class="post-copyright">
+                                    <li>
+                                        <strong>原作者:</strong> <b>[[${post.author}]]</b>
+                                    </li>
+                                    <li>
+                                        <strong>原文链接:</strong> <a class="alert-link" th:href="@{${post.reprintLink}}" target="_blank" th:text="${post.reprintLink}"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <span><a href="javascript:void(0)" rel="category tag">正文: </a></span>
+                            <span class="pull-right"><i class="fa fa-eye"></i> [[${post.readNum}]]</span>
+                        </div>
+                        <!-- /Entry meta -->
+
+                    </header>
+                    <!-- /Entry header -->
+
+                    <!-- Entry content -->
+                    <div class="entry-content">
+                        <div class="row">
+                            <div class=" col-xs-12 col-sm-12 ">
+                                <div class="col-inner" th:utext="${md.md2html(post.id, post.content, 2)}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Entry content -->
+
+                    <div>
+                        <button class="praise-btn" id="priseBtn">
+                            <i class="lnr lnr-thumbs-up"></i>
+                            <span id="prizeCount" th:text="${post.praiseNum}"></span>
+                        </button>
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                        <ul class="post-copyright">
+                            <li>
+                                <strong>本文作者:</strong> <b>[[${#servletContext.getAttribute('configMap')['blog_author']}]]</b>
+                            </li>
+                            <li>
+                                <strong>本文链接:</strong> <a id="shareUrl" class="alert-link" th:href="@{${#servletContext.getAttribute('configMap')['home_page']} + '/'+${post.link}}" target="_blank" th:text="${#servletContext.getAttribute('configMap')['home_page']+'/'+ post.link}"></a>
+                            </li>
+                            <li>
+                                <strong>版权声明:</strong>  本博客所有文章除特别声明外均为原创，采用 <a th:href="@{${#servletContext.getAttribute('configMap')['license_url']}}" class="alert-link" target="_blank" th:text="${#servletContext.getAttribute('configMap')['license']}"></a> 许可协议。转载请在文章开头明显位置注明原文链接和作者等相关信息，明确指出修改（如有），并通过 E-mail 等方式告知，谢谢合作！
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="entry-meta entry-meta-bottom">
+                        <div class="date-author">
+                          <span class="entry-date">
+                            <a href="#" rel="bookmark">
+                              <i class="far fa-clock"></i> <span th:text="${post.publishDate}"> </span>
+                            </a>
+                          </span>
+                                <span class="author vcard">
+                            <a class="url fn n" href="#" rel="author"> <i class="fas fa-user"></i> [[${post.author}]]</a>
+                          </span>
+                        </div>
+
+                        <!-- Share Buttons -->
+                        <div id="shareBtns" class="entry-share btn-group share-buttons social-share" data-initialized="true">
+                            <a href="#" class="social-share-icon icon-weibo"></a>
+                            <a href="#" class="social-share-icon icon-qq"></a>
+                            <a href="#" class="social-share-icon icon-qzone"></a>
+                            <a href="#" class="social-share-icon icon-wechat"></a>
+                        </div>
+                        <!-- /Share Buttons -->
+                    </div>
+
+                    <div class="post-tags">
+                        <div class="tags" th:if="${#strings.isEmpty(post.tags) == false}">
+                            <a th:href="@{'/tags/'+${tag}+'/'}" rel="tag" th:each="tag,status : ${#strings.arraySplit(post.tags, ',')}" th:text="${tag}"></a>
+                        </div>
+                    </div>
+
+                    <!-- 评论 -->
+                    <div id="comment-container" class="comment-container"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script th:src="@{${prefix} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery.cookie.js'}"></script>
+    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery-comment.js'}"></script>
+    <script type='text/javascript' th:src="@{'/admin/assets/js/plugins/tocjs/toc.js'}"></script>
+    <script th:src="@{${prefix} + '/source/js/detail.js'}"></script>
+    <script type="text/javascript" th:inline="javascript">
+        $(function () {
+            let nickname = [[${#servletContext.getAttribute('configMap')['blog_author']}]];
+            CommentManager.init(nickname, [[${post.id}]], [[${post.comment}]]);
+        })
+    </script>
+</div>
+</body>
+</html>
