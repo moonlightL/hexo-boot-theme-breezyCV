@@ -1,11 +1,10 @@
 let GuestBookManager = (function ($) {
 
     let GuestBookManager = {
-        init: function (nickname) {
+        init: function () {
             $("#comment-container").BeautyComment({
                 title: "留言",
                 subTitle: "最新留言",
-                bloggerName: nickname,
                 baseUrl: "/admin/assets/custom/",
                 listUrl: "/guestBookList.json",
                 sendUrl: "/auth/sendGuestBook.json",
