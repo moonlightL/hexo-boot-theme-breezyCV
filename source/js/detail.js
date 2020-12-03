@@ -1,18 +1,18 @@
 let CommentManager = (function ($) {
 
     let CommentManager = {
-        init: function (nickname, postId) {
-            CommentManager.initComment(nickname, postId);
+        init: function (postId, comment) {
+            CommentManager.initComment(postId, comment);
             CommentManager.bindEvent(postId);
         },
-        initComment: function (nickname, postId) {
+        initComment: function (postId, comment) {
             $("#comment-container").BeautyComment({
                 title: "评论",
                 subTitle: "最新评论",
-                bloggerName: nickname,
                 baseUrl: "/admin/assets/custom/",
                 listUrl: "/commentList.json",
                 sendUrl: "/auth/sendComment.json",
+                canComment: comment,
                 ajaxParams: {postId: postId, pageNum: 1, pageSize: 10},
                 listHandler: function (resp) {
                     return {
