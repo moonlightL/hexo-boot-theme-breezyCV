@@ -3129,67 +3129,6 @@ pre, .highlight {
   color: #fff
 }
 
-.comment-container {
-  margin-top: 2rem;
-}
-
-.comment-container .comment-data .comment-data-title, .comment-container .comment-list .comment-list-title {
-  border-bottom: none !important;
-}
-
-.comment-data-body .comment-data-body-btns .send-message-btn {
-  background-color: #09aeea !important;
-  border: 1px solid #09aeea !important;
-  border-radius: 2px !important;
-}
-
-.comment-data-body .comment-data-body-btns .send-message-btn:hover {
-  background-color: #0da5dc !important;
-}
-
-.comment-container .comment-list .comment-list-item .date {
-  background-color: #09aeea !important;
-}
-
-.comment-list .comment-list-page-bar ul li {
-  background-color: #09aeea !important;
-}
-
-.comment-list .comment-list-page-bar ul li {
-  background-color: #e4e7ea !important;
-
-}
-
-.comment-list .comment-list-page-bar ul li a {
-  color: #fff;
-}
-
-.comment-list .comment-list-page-bar ul li.active {
-  background-color: #09aeea !important;
-}
-
-.comment-list .comment-list-page-bar ul li a:hover {
-  background-color: #09aeea !important;
-}
-
-.comment-data-body .comment-data-body-btns .send-message-btn {
-  top: 0 !important;
-  padding: 8px !important;
-  box-shadow: none;
-}
-
-.comment-data-body .comment-data-body-content textarea {
-  box-shadow: none;
-}
-
-.comment-data-body .comment-data-body-btns .emoji-container .emoji-container-btn {
-  margin-top: 16px !important;
-}
-
-.comment-data-body .comment-data-body-btns .input-container {
-  top: 6px !important;
-}
-
 .post-content .praise-btn {
   border-radius: 0;
   padding: 5px 8px;

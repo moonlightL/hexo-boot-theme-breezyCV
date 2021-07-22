@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
-    <link rel="stylesheet" th:href="@{'/admin/assets/custom/jquery-comment/jquery-comment.css'}">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/jquery-comment/jquery-comment.css'}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -66,10 +66,10 @@
             </div>
         </div>
     </div>
-    <script th:src="@{${prefix} + '/source/js/jquery-2.1.3.min.js'}"></script>
-    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery.cookie.js'}"></script>
-    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery-comment.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/about.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-comment/jquery.cookie.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-comment/jquery-comment.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/about.js'}"></script>
     <script type="text/javascript" th:inline="javascript">
         $(function () {
             GuestBookManager.init();

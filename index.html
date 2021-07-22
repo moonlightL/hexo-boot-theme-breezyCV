@@ -9,20 +9,19 @@
     <meta name="author" th:content="${#servletContext.getAttribute('configMap')['blog_author']}">
     <meta name="keywords" th:content="${#servletContext.getAttribute('configMap')['keywords']}" />
     <link rel="shortcut icon" th:href="@{${#servletContext.getAttribute('configMap')['favicon_url']}}"/>
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/reset.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/bootstrap-grid.min.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/animations.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/perfect-scrollbar.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/owl.carousel.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/magnific-popup.css'}" type="text/css">
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/css/main.css'}" type="text/css">
-
-    <script th:src="@{${prefix} + '/source/js/modernizr.custom.js'}"></script>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/reset.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/bootstrap-grid.min.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/animations.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/perfect-scrollbar.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/owl.carousel.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/magnific-popup.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/main.css'}" type="text/css">
+    <script th:src="@{${baseLink} + '/source/js/modernizr.custom.js'}"></script>
   </head>
 
   <body>
     <!-- Animated Background -->
-    <div class="lm-animated-bg" th:style="'background-image: url(' + ${prefix}+ '/source/img/main_bg.png' + ');'"></div>
+    <div class="lm-animated-bg"></div>
     <!-- /Animated Background -->
 
     <!-- Loading animation -->
@@ -94,7 +93,7 @@
               <a href="#" rel="sidebar" class="btn btn-primary" onclick="addFav();">收藏网站</a>
             </div>
 
-            <div class="copyrights" th:text="${#servletContext.getAttribute('configMap')['power_by']}"></div>
+            <div class="copyrights" th:utext="${#servletContext.getAttribute('configMap')['power_by']}"></div>
           </header>
 
           <!-- Mobile Navigation -->
@@ -141,22 +140,22 @@
       </div>
     </div>
 
-    <script th:src="@{${prefix} + '/source/js/jquery-2.1.3.min.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/modernizr.custom.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/animating.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/modernizr.custom.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/animating.js'}"></script>
 
-    <script th:src="@{${prefix} + '/source/js/imagesloaded.pkgd.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/imagesloaded.pkgd.min.js'}"></script>
     <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 
-    <script th:src="@{${prefix} + '/source/js/perfect-scrollbar.min.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/jquery.shuffle.min.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/masonry.pkgd.min.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/owl.carousel.min.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/jquery.magnific-popup.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/perfect-scrollbar.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery.shuffle.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/masonry.pkgd.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/owl.carousel.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery.magnific-popup.min.js'}"></script>
 
     <script th:src="@{'http://www.google.cn/maps/api/js?key=AIzaSyCrDf32aQTCVENBhFJbMBKOUTiUAABtC2o'}"></script>
-    <script th:src="@{${prefix} + '/source/js/validator.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/main.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/validator.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/main.js'}"></script>
 
   </body>
 </html>

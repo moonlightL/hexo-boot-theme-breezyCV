@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
-    <link rel="stylesheet" th:href="@{${prefix} + '/source/js/overshare/css/share.min.css'}"/>
-    <link rel="stylesheet" th:href="@{'/admin/assets/custom/jquery-comment/jquery-comment.css'}">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/overshare/css/share.min.css'}"/>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/jquery-comment/jquery-comment.css'}">
     <style>
         body {
             background: #fff;
@@ -107,7 +107,7 @@
                     <div class="entry-content">
                         <div class="row">
                             <div class=" col-xs-12 col-sm-12 ">
-                                <div class="col-inner" th:utext="${md.md2html(post.id, post.content, 2)}"></div>
+                                <div class="col-inner" th:utext="${post.contentHtml}"></div>
                             </div>
                         </div>
                     </div>
@@ -169,15 +169,14 @@
         </div>
 
     </div>
-    <script th:src="@{${prefix} + '/source/js/jquery-2.1.3.min.js'}"></script>
-    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery.cookie.js'}"></script>
-    <script th:src="@{'/admin/assets/custom/jquery-comment/jquery-comment.js'}"></script>
-    <script type='text/javascript' th:src="@{'/admin/assets/js/plugins/tocjs/toc.js'}"></script>
-    <script th:src="@{${prefix} + '/source/js/detail.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-comment/jquery.cookie.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/jquery-comment/jquery-comment.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/detail.js'}"></script>
     <script type="text/javascript" th:inline="javascript">
         $(function () {
             CommentManager.init([[${post.id}]], [[${post.comment}]]);
-        })
+        });
     </script>
 </div>
 </body>

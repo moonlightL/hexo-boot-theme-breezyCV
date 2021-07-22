@@ -24,7 +24,7 @@
                                     <figure class="item lbaudio" th:each="category,iterStat: ${categoryList}">
                                         <div class="portfolio-item-img">
                                             <img th:src="@{${category.coverUrl}}" alt="" title="" height="150"/>
-                                            <a th:href="@{'/categories/'+${category.name}+'/'}" class="lightbox mfp-iframe" th:title="${category.name}"></a>
+                                            <a th:href="@{'/categories/'+${category.name}+'/'}" class="mfp-iframe" th:title="${category.name}"></a>
                                         </div>
                                         <h4 class="name" style="text-align: center" th:text="${category.name} + '('+ ${category.postNum} +')'"></h4>
                                     </figure>
