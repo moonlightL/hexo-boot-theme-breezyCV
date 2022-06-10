@@ -11,7 +11,8 @@
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/magnific-popup.css'}" type="text/css">
     <link rel="stylesheet" th:href="@{${prefix} + '/source/css/main.css'}" type="text/css">
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/highlightjs/styles/github-gist.css'}"/>
-
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/fancybox/jquery.fancybox.min.css'}"/>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
     <style>
         body {
             background: #fff;
@@ -26,11 +27,6 @@
             #blog-container {
                 padding: 30px;
             }
-        }
-
-        .page-title {
-            padding-bottom: 0;
-            margin-bottom: 0;
         }
 
         a {
@@ -60,6 +56,7 @@
     <div layout:fragment="content" ></div>
 </div>
 <script th:src="@{${baseLink} + '/source/js/jquery-2.1.3.min.js'}"></script>
+<script th:src="@{${baseLink} + '/source/js/fancybox/jquery.fancybox.min.js'}"></script>
 <script th:inline="javascript">
     $(function () {
         $(window).on('load', function() {
@@ -71,12 +68,31 @@
     <script th:src="@{${baseLink} + '/source/js/fancybox/jquery.fancybox.min.js'}"></script>
     <script type='text/javascript' th:src="@{${baseLink} + '/source/js/overshare/js/social-share.min.js'}"></script>
     <script type='text/javascript' th:src="@{${baseLink} + '/source/js/highlightjs/highlight.pack.js'}"></script>
+    <script type='text/javascript' th:src="@{${baseLink} + '/source/js/layer/layer.js'}"></script>
     <script type='text/javascript' th:inline="javascript">
 
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('figure span').forEach(function(block) {
                 hljs.highlightBlock(block);
             });
+        });
+
+        $("#priseBtn").on("click",function () {
+            let postId = $(this).data("id");
+            let key = "post-hasPrize" + postId;
+            if (sessionStorage.getItem(key)) {
+                layer.msg("已点赞");
+                return;
+            }
+
+            $.post("/praisePost/" + postId, null, function (resp) {
+                if (resp.success) {
+                    $("#prizeCount").text(resp.data);
+                    sessionStorage.setItem(key, "y");
+                    layer.msg("谢谢点赞");
+                }
+            },"json");
+
         });
 
         let baseLink = [[${baseLink}]];

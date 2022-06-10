@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
-
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
 </head>
 <body>
 <div layout:fragment="content">
@@ -42,24 +42,30 @@
 
                 <div class="white-space-20"></div>
 
-                <nav class="text-center" th:if="${#lists.isEmpty(pageInfo.data) eq false}">
+                <nav class="pagination">
                     <span th:if="${pageInfo.hasPreviousPage}" class="nav-page">
-                        <a class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/' : '/blogs/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
+                        <a data-pjax class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/' : '/blogs/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
                     </span>
-                    <span th:if="${pageInfo.hasPreviousPage == false}" class="nav-page">
-                        <a class="prev page-numbers" href="javascript:void(0)"><i class="fa fa-angle-left"></i></a>
-                    </span>
-                    <span th:each="pageNum : ${pageInfo.navigatepageNums}" class="nav-page">
-                        <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" th:text="${pageNum}" class="page-numbers current"></a>
-                        <a th:if="${pageNum != pageInfo.pageNum}" th:href="@{'/blogs/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers hidden-xs"></a>
-                    </span>
+                    <span th:each="pageNum : ${pageInfo.navigatepageNums}" th:if="${pageInfo.navigatepageNums.length} le '4' " class="nav-page">
+                        <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" class="page-numbers current" th:text="${pageNum}"></a>
+                        <span class="page" th:if="${pageNum != pageInfo.pageNum}">
+                            <a data-pjax th:href="@{'/blogs/page/' + ${pageNum}+'/'}" th:text="${pageNum}"></a>
+                        </span>
+                     </span>
+                    <span th:each="pageNum, iterStat : ${pageInfo.navigatepageNums}" th:if="${pageInfo.navigatepageNums.length} gt '4' " class="nav-page">
+                       <span class="nav-page" th:if="${pageNum == pageInfo.pageNum and iterStat.count gt 2 and iterStat.count le iterStat.size}">...</span>
+                       <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" class="page-numbers current" th:text="${pageNum}"></a>
+                       <span class="nav-page" th:if="${pageNum == pageInfo.pageNum and iterStat.count le (iterStat.size - 2)}">...</span>
+                       <span th:if="${pageNum != pageInfo.pageNum}">
+                           <span class="nav-page" th:if="${iterStat.count == 1}" ><a data-pjax th:href="@{'/blogs/page/1/'}" th:text="1"></a></span>
+                           <span class="nav-page" th:if="${iterStat.count == (iterStat.size)}"><a data-pjax th:href="@{'/blogs/page/' + ${pageNum}+'/'}" th:text="${pageNum}"></a></span>
+                        </span>
+                   </span>
                     <span th:if="${pageInfo.hasNextPage}" class="nav-page">
-                        <a class="next page-numbers" th:href="@{'/blogs/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
-                    </span>
-                    <span th:if="${pageInfo.hasNextPage == false}" class="nav-page">
-                        <a class="next page-numbers" href="javascript:void(0)"><i class="fa fa-angle-right"></i></a>
+                        <a data-pjax class="next page-numbers" th:href="@{'/blogs/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
                     </span>
                 </nav>
+                <br>
             </div>
         </div>
     </div>

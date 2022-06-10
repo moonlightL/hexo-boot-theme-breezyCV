@@ -15,6 +15,7 @@
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/perfect-scrollbar.css'}" type="text/css">
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/owl.carousel.css'}" type="text/css">
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/magnific-popup.css'}" type="text/css">
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/css/main.css'}" type="text/css">
     <script th:src="@{${baseLink} + '/source/js/modernizr.custom.js'}"></script>
   </head>
@@ -48,34 +49,10 @@
             </div>
 
             <ul class="main-menu">
-              <li>
-                <a href="#blogs" class="nav-anim" data-url="/blogs/">
-                  <span class="menu-icon lnr lnr-home"></span>
-                  <span class="link-text">文章</span>
-                </a>
-              </li>
-              <li>
-                <a href="#archives" class="nav-anim" data-url="/archives/">
-                  <span class="menu-icon lnr lnr-layers"></span>
-                  <span class="link-text">归档</span>
-                </a>
-              </li>
-              <li>
-                <a href="#categories" class="nav-anim" data-url="/categories/">
-                  <span class="menu-icon lnr lnr-book"></span>
-                  <span class="link-text">分类</span>
-                </a>
-              </li>
-              <li>
-                <a href="#friendLinks" class="nav-anim" data-url="/friendLinks/">
-                  <span class="menu-icon lnr lnr-link "></span>
-                  <span class="link-text">友链</span>
-                </a>
-              </li>
-              <li>
-                <a href="#about" class="nav-anim" data-url="/about/">
-                  <span class="menu-icon lnr lnr-user"></span>
-                  <span class="link-text">关于</span>
+              <li th:each="nav : ${#servletContext.getAttribute('firstNav')}">
+                <a th:href="${'#' + (nav.code eq 'index' ? 'blogs' : nav.code)}" class="nav-anim" th:data-url="${nav.code eq 'index' ? 'blogs/' : nav.link}">
+                  <i th:class="${nav.icon}"></i>&nbsp;
+                  <span class="link-text" th:text="${nav.name}"></span>
                 </a>
               </li>
             </ul>
@@ -113,27 +90,7 @@
 
           <div class="content-area">
             <div class="animated-sections">
-
-              <!-- Blog Subpage -->
-              <section data-id="blogs" class="animated-section"></section>
-              <!-- End of Blog Subpage -->
-
-              <!-- Resume Archives -->
-              <section data-id="archives" class="animated-section"></section>
-              <!-- End of Archives Subpage -->
-
-              <!-- Categories Subpage -->
-              <section data-id="categories" class="animated-section"></section>
-              <!-- End of Categories Subpage -->
-
-              <!-- FriendLinks Subpage -->
-              <section data-id="friendLinks" class="animated-section"></section>
-              <!-- End of FriendLinks Subpage -->
-
-              <!-- About Me Subpage -->
-              <section data-id="about" class="animated-section"></section>
-              <!-- End of About Me Subpage -->
-
+              <section th:each="nav : ${#servletContext.getAttribute('firstNav')}" th:data-id="${nav.code eq 'index' ? 'blogs' : nav.code}" class="animated-section custom-section"></section>
             </div>
           </div>
 
@@ -145,7 +102,6 @@
     <script th:src="@{${baseLink} + '/source/js/animating.js'}"></script>
 
     <script th:src="@{${baseLink} + '/source/js/imagesloaded.pkgd.min.js'}"></script>
-    <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 
     <script th:src="@{${baseLink} + '/source/js/perfect-scrollbar.min.js'}"></script>
     <script th:src="@{${baseLink} + '/source/js/jquery.shuffle.min.js'}"></script>

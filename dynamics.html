@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2>动态</h2>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="dynamic-content" id="dynamic-content">
+                            <div class="dynamic-item animate-box" th:each="dynamic : ${pageInfo.list}" th:data-color="${dynamic.color}">
+                                <div class="info">
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <img class="hidden-xs" style="width: 48px; height: 48px; max-width: unset" th:src="@{${#strings.isEmpty(#servletContext.getAttribute('configMap')['blog_avatar']) != true ? #servletContext.getAttribute('configMap')['blog_avatar'] :
+                        (#strings.isEmpty(#servletContext.getAttribute('configMap')['logo_url']) !=true ? #servletContext.getAttribute('configMap')['logo_url'] : prefix + '/source/images/logo.png')}}">
+                                        </div>
+                                        <div class="col-md-11">
+                                            <div class="content" th:utext="${dynamic.content}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="meta">
+                            <span class="date">
+                                <i class="fa fa-clock-o"></i> 发布于 [[${dynamic.timeDesc}]]
+                            </span>
+                                    <a class="praise" href="javascript:void(0)" th:data-id="${dynamic.id}">
+                                        <i class="fa fa-heart-o"></i>&nbsp;<span class="praise-num">[[${dynamic.praiseNum}]]</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <nav class="pagination">
+                            <span th:if="${pageInfo.hasPreviousPage}" class="nav-page">
+                                <a data-pjax class="prev page-numbers" th:href="@{${pageInfo.pageNum-1} == 1 ? '/dynamics/' : '/dynamics/page/' + ${pageInfo.pageNum-1}+'/'}" ><i class="fa fa-angle-left"></i></a>
+                            </span>
+                             <span th:each="pageNum : ${pageInfo.navigatepageNums}" th:if="${pageInfo.navigatepageNums.length} le '4' " class="nav-page">
+                                <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" class="page-numbers current" th:text="${pageNum}"></a>
+                                <span class="page" th:if="${pageNum != pageInfo.pageNum}">
+                                    <a data-pjax th:href="@{'/dynamics/page/' + ${pageNum}+'/'}" th:text="${pageNum}"></a>
+                                </span>
+                             </span>
+                               <span th:each="pageNum, iterStat : ${pageInfo.navigatepageNums}" th:if="${pageInfo.navigatepageNums.length} gt '4' " class="nav-page">
+                                   <span class="nav-page" th:if="${pageNum == pageInfo.pageNum and iterStat.count gt 2 and iterStat.count le iterStat.size}">...</span>
+                                   <a th:if="${pageNum == pageInfo.pageNum}" href="javascript:void(0)" class="page-numbers current" th:text="${pageNum}"></a>
+                                   <span class="nav-page" th:if="${pageNum == pageInfo.pageNum and iterStat.count le (iterStat.size - 2)}">...</span>
+                                   <span th:if="${pageNum != pageInfo.pageNum}">
+                                       <span class="nav-page" th:if="${iterStat.count == 1}" ><a data-pjax th:href="@{'/dynamics/page/1/'}" th:text="1"></a></span>
+                                       <span class="nav-page" th:if="${iterStat.count == (iterStat.size)}"><a data-pjax th:href="@{'/dynamics/page/' + ${pageNum}+'/'}" th:text="${pageNum}"></a></span>
+                                    </span>
+                               </span>
+                               <span th:if="${pageInfo.hasNextPage}" class="nav-page">
+                                <a data-pjax class="next page-numbers" th:href="@{'/dynamics/page/' + ${pageInfo.pageNum+1}+'/'}" ><i class="fa fa-angle-right"></i></a>
+                            </span>
+                        </nav>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{${baseLink} + '/source/js/jquery-2.1.3.min.js'}"></script>
+    <script th:src="@{${baseLink} + '/source/js/layer/layer.js'}"></script>
+    <script>
+        $(".praise").off("click").on("click",function () {
+            let that = this;
+            let id = $(this).data("id");
+            let key = "dynamic-hasPrize" + id;
+            if (sessionStorage.getItem(key)) {
+                layer.msg("已点赞");
+                return;
+            }
+
+            $.post("/praiseDynamic/" + id, null, function (resp) {
+                if (resp.success) {
+                    $(that).find(".praise-num").text(resp.data);
+                    $(that).find(".fa").css("color", "red");
+                    sessionStorage.setItem(key, "y");
+                    layer.msg("点赞成功");
+                }
+            },"json");
+
+        });
+    </script>
+</div>
+</body>
+</html>

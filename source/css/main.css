@@ -26,10 +26,6 @@
 /* Linear Icons Font */
 @import url('./fonts/linear-icons-font/style.css');
 
-/* FontAwesome Free Icons Font */
-@import url('./fonts/fontawesome-free-5.12.1-web/css/all.min.css');
-
-
 /* ------------------------------------------------------------
 2. General Styles
 ------------------------------------------------------------ */
@@ -1784,6 +1780,9 @@ nav .nav-page a:hover {
 nav .nav-page a.current {
   background: #09aeea;
   color: #fff;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
 }
 
 .sticky-badge {
@@ -3148,4 +3147,240 @@ pre, .highlight {
 
 .post-content .praise-btn span {
   color: #09aeea;
+}
+
+.hb-r-body .hb-r-pagination ul li {
+  background-color: unset !important;
+}
+
+.hb-r-body .hb-r-pagination ul li a,
+.hb-r-body .hb-r-pagination ul li a:active {
+  padding: 0 !important;
+  line-height: 32px !important;
+}
+
+.emoji_btn {
+  font-size: 24px;
+}
+
+/** 标签 start **/
+
+.tags-content {
+  margin-top: 2rem;
+  animation: slowUp 1s;
+}
+
+.tags-content a {
+  display: inline-block;
+  margin: .625rem;
+  padding: .5rem .625rem;
+  border-radius: 4px;
+}
+
+.tags-content a:hover {
+  box-shadow: 0 1px 3px 1px var(--shadow-color);
+  opacity: .8;
+}
+
+/** 标签 end **/
+
+/** 动态 start  */
+
+.dynamic-item {
+  margin-bottom: 2rem;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+}
+
+.dynamic-item .info {
+  padding: 2rem;
+  border-radius: 4px 4px 0 0;
+}
+
+.dynamic-item .info .content {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.dynamic-item .info .content img.custom-img,
+.dynamic-item .info .content video,
+.dynamic-item .info .content iframe {
+  max-width: 720px !important;
+  max-height: 368px !important;
+  object-fit: cover;
+}
+
+.dynamic-item .info .content a {
+  text-decoration: underline !important;
+}
+
+.dynamic-item .meta {
+  display: inline-block;
+  width: 100%;
+  background-color: #fcfcfc;
+  border: 1px solid #eee;
+  padding: 1rem;
+}
+
+.dynamic-item .meta span {
+  display: inline-block;
+}
+
+.dynamic-item .meta a.praise {
+  float: right;
+}
+
+@media screen and (max-width: 768px) {
+  .dynamic-item .info .content img.custom-img {
+    width: 100% !important;
+    height: 146px;
+  }
+
+  .dynamic-item .info .content video {
+    width: 270px;
+    height: 146px;
+  }
+
+  .dynamic-item .info .content iframe {
+    width: 270px;
+  }
+}
+
+/** 动态 end  */
+
+/** 专辑 start  */
+.album-item {
+  width: 100%;
+  height: 100%;
+  text-align:center;
+  background-size: cover;
+  margin-bottom: 2em;
+  transition: all .3s;
+  box-shadow: 0 0 5px var(--shadow-color);
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+.album-item a {
+  color: #888;
+}
+
+.album-item a:hover {
+  color: var(--theme-color);
+}
+
+.album-item a img,.album-detail-item a img {
+  width: 100%;
+  height:200px;
+  object-fit: cover;
+}
+
+.album-item .descr {
+  padding-top: 1rem;
+}
+
+.album-detail-item {
+  position: relative;
+  margin: 1.5rem auto;
+  height: 100%;
+  box-shadow: 0 1px 3px 1px var(--shadow-color);
+}
+
+.album-detail-item a .mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0 ,0, 0, .6);
+  width: 100%;
+  height: 150px;
+  opacity: 0;
+  transition: all .5s;
+}
+
+.album-detail-item a:hover .mask {
+  opacity: 1;
+}
+
+.album-detail-item a .mask i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.album-detail-item .name {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 1rem 0;
+}
+
+.video-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .7);
+  z-index: 999;
+}
+
+.video-self {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 620px;
+  height: 420px;
+  z-index: 1000;
+}
+
+.video-close {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: calc(50% - 168px);
+  left: calc(50% + 298px);
+  z-index: 1000;
+  cursor: pointer;
+  color: #fff;
+  font-size: 22px;
+}
+
+@media screen and (max-width: 768px) {
+  .video-self {
+    width: 360px;
+    height: 240px;
+  }
+
+  .video-close {
+    top: calc(50% - 108px);
+    left: calc(50% + 164px);
+  }
+}
+
+/** 专辑 end  */
+
+.pagination {
+  margin-top: 4rem;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+
+.pagination .page {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 26px;
+  margin: 0 .5rem;
+  padding: .75rem;
+  position: relative;
+  transition: all .5s;
+  box-shadow: 0 1px 6px 1px var(--shadow-color);
+  color: var(--text-color);
 }

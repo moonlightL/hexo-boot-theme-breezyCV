@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
 </head>
 <body>
 <div layout:fragment="content">
@@ -60,7 +61,7 @@
                 <div class="white-space-30"></div>
 
                 <!-- 评论 -->
-                <div th:replace="~{theme/breezyCV/common :: comment}"></div>
+                <div th:replace="~{theme/breezyCV/common :: comment(true)}"></div>
             </div>
         </div>
     </div>

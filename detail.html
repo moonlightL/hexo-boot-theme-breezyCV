@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
     <link rel="stylesheet" th:href="@{${baseLink} + '/source/js/overshare/css/share.min.css'}"/>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
     <style>
         body {
             background: #fff;
@@ -113,8 +114,8 @@
                     <!-- /Entry content -->
 
                     <div>
-                        <button class="praise-btn" id="priseBtn">
-                            <i class="lnr lnr-thumbs-up"></i>
+                        <button class="praise-btn" id="priseBtn" th:data-id="${post.id}">
+                            <i class="lnr lnr-thumbs-up"></i>&nbsp;
                             <span id="prizeCount" th:text="${post.praiseNum}"></span>
                         </button>
                     </div>
@@ -122,13 +123,13 @@
                     <div class="alert alert-info" role="alert">
                         <ul class="post-copyright">
                             <li>
-                                <strong>本文作者:</strong> <b>[[${#servletContext.getAttribute('configMap')['blog_author']}]]</b>
+                                <strong>本文作者:</strong>&nbsp;<b>[[${#servletContext.getAttribute('configMap')['blog_author']}]]</b>
                             </li>
                             <li>
-                                <strong>本文链接:</strong> <a id="shareUrl" class="alert-link" th:href="@{${#servletContext.getAttribute('configMap')['home_page']} + '/'+${post.link}}" target="_blank" th:text="${#servletContext.getAttribute('configMap')['home_page']+'/'+ post.link}"></a>
+                                <strong>本文链接:</strong>&nbsp;<a id="shareUrl" class="alert-link" th:href="@{${#servletContext.getAttribute('configMap')['home_page']} + '/'+${post.link}}" target="_blank" th:text="${#servletContext.getAttribute('configMap')['home_page']+'/'+ post.link}"></a>
                             </li>
                             <li>
-                                <strong>版权声明:</strong>  本博客所有文章除特别声明外均为原创，采用 <a th:href="@{${#servletContext.getAttribute('configMap')['license_url']}}" class="alert-link" target="_blank" th:text="${#servletContext.getAttribute('configMap')['license']}"></a> 许可协议。转载请在文章开头明显位置注明原文链接和作者等相关信息，明确指出修改（如有），并通过 E-mail 等方式告知，谢谢合作！
+                                <strong>版权声明:</strong>&nbsp;本博客所有文章除特别声明外均为原创，采用 <a th:href="@{${#servletContext.getAttribute('configMap')['license_url']}}" class="alert-link" target="_blank" th:text="${#servletContext.getAttribute('configMap')['license']}"></a> 许可协议。转载请在文章开头明显位置注明原文链接和作者等相关信息，明确指出修改（如有），并通过 E-mail 等方式告知，谢谢合作！
                             </li>
                         </ul>
                     </div>
@@ -137,11 +138,11 @@
                         <div class="date-author">
                           <span class="entry-date">
                             <a href="#" rel="bookmark">
-                              <i class="far fa-clock"></i> <span th:text="${post.publishDate}"> </span>
+                              <i class="far fa-clock"></i>&nbsp;<span th:text="${post.publishDate}"> </span>
                             </a>
                           </span>
-                                <span class="author vcard">
-                            <a class="url fn n" href="#" rel="author"> <i class="fas fa-user"></i> [[${post.author}]]</a>
+                          <span class="author vcard">
+                            <a class="url fn n" href="#" rel="author"> <i class="fas fa-user"></i>&nbsp;[[${post.author}]]</a>
                           </span>
                         </div>
 
@@ -165,7 +166,7 @@
                     <script type="text/javascript" th:inline="javascript">
                         window.canComment = [[${post.comment}]];
                     </script>
-                    <div th:replace="~{theme/breezyCV/common :: comment}"></div>
+                    <div th:replace="~{theme/breezyCV/common :: comment(${post.comment})}"></div>
                 </div>
             </div>
         </div>

@@ -8,7 +8,11 @@ var PageTransitions = (function($, options) {
         return false;
     }
 
-    var linkArr = ["#archives", "#categories", "#about", "#blogs", "#friendLinks"];
+    var linkArr = [];
+    $(".custom-section").each(function(index, domEle) {
+        linkArr.push("#" + $(domEle).data("id"));
+    });
+
     var sectionsContainer = $(".animated-sections"),
         isAnimating = false,
         endCurrentPage = true,

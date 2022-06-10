@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
 <head>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
     <style>
         .section-content span {
             display: inline-block;
@@ -68,6 +69,8 @@
                     </div>
                 </div>
             </div>
+            <!-- 评论 -->
+            <div th:replace="~{theme/breezyCV/common :: comment(true)}"></div>
         </div>
     </div>
 

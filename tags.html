@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{theme/breezyCV/layout}">
+<head>
+    <link rel="stylesheet" th:href="@{${baseLink} + '/source/fonts/font-awesome/css/font-awesome.min.css'}" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="page-title">
+        <h2>标签</h2>
+    </div>
+
+    <div class="single-page-area">
+        <div class="single-page-content">
+            <div class="section-content">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="portfolio-content">
+                            <div class="portfolio-grid three-columns">
+                                <div class="tags-content">
+                                    <a data-pjax class="tag" th:href="@{'/tags/'+${tag.name}+'/'}" th:each="tag,status : ${tagList}">[[${tag.name}]]&nbsp;</a>
+                                </div>
+                                <div th:if="${count == 0}" th:style="'text-align:center;'" th:text="'~~暂无标签~~'"></div>
+                                <script>
+                                    let colorArr = ["#1ABC9C", "#2ECC71", "#3498DB", "#9B59B6", "#34495E", "#F1C40F", "#E67E22", "#E74C3C", "#000"];
+                                    let elements = document.getElementsByClassName("tag");
+                                    for (let i = 0; i < elements.length; i++) {
+                                        let element = elements[i];
+                                        let index = Math.floor(Math.random() * colorArr.length);
+                                        element.style.backgroundColor = colorArr[index];
+                                        element.style.color = "#fff";
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
